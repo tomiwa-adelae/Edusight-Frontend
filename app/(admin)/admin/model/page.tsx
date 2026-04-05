@@ -290,7 +290,7 @@ export default function ModelPage() {
                 <XAxis dataKey="name" tick={{ fontSize: 9 }} />
                 <YAxis domain={[50, 100]} tick={{ fontSize: 10 }} tickFormatter={(v) => `${v}%`} />
                 <Tooltip formatter={(v) => [`${v}%`, "F1 Score"]} />
-                <Bar dataKey="f1" radius={[4, 4, 0, 0]} fill="#2563eb" label={{ position: "top", fontSize: 9, formatter: (v: number) => `${v}%` }} />
+                <Bar dataKey="f1" radius={[4, 4, 0, 0]} fill="#2563eb" label={{ position: "top", fontSize: 9, formatter: (v: unknown) => v != null ? `${v}%` : "" }} />
               </BarChart>
             </ResponsiveContainer>
           </CardContent>
