@@ -127,3 +127,11 @@
     @apply font-sans;
     }
 }
+@utility container {
+	margin-inline: auto;
+	width: 95%;
+
+	@media (min-width: 1024px) {
+		width: 92%;
+	}
+}
