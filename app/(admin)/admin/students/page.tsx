@@ -144,7 +144,7 @@ export default function StudentsPage() {
                 onChange={(e) => setSearch(e.target.value)}
               />
             </div>
-            <Select value={departmentId} onValueChange={setDepartmentId}>
+            <Select value={departmentId} onValueChange={(v) => setDepartmentId(v ?? "")}>
               <SelectTrigger className="w-44 dark:border-slate-700 dark:bg-slate-800">
                 <SelectValue placeholder="Department" />
               </SelectTrigger>
@@ -155,7 +155,7 @@ export default function StudentsPage() {
                 ))}
               </SelectContent>
             </Select>
-            <Select value={riskLevel} onValueChange={setRiskLevel}>
+            <Select value={riskLevel} onValueChange={(v) => setRiskLevel(v ?? "")}>
               <SelectTrigger className="w-36 dark:border-slate-700 dark:bg-slate-800">
                 <SelectValue placeholder="Risk Level" />
               </SelectTrigger>
@@ -166,7 +166,7 @@ export default function StudentsPage() {
                 <SelectItem value="LOW">Low Risk</SelectItem>
               </SelectContent>
             </Select>
-            <Select value={level} onValueChange={setLevel}>
+            <Select value={level} onValueChange={(v) => setLevel(v ?? "")}>
               <SelectTrigger className="w-32 dark:border-slate-700 dark:bg-slate-800">
                 <SelectValue placeholder="Level" />
               </SelectTrigger>

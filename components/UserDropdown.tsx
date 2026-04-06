@@ -34,8 +34,8 @@ export function UserDropdown() {
     <DropdownMenu>
       {/* asChild passes the trigger behaviour into the inner element,
           avoiding a <button> inside a <button> */}
-      <DropdownMenuTrigger asChild>
-        <button className="flex items-center gap-2 rounded-md px-2 py-1.5 outline-none transition-colors hover:bg-white/10">
+      <DropdownMenuTrigger>
+        <button className="flex items-center gap-2 rounded-md px-2 py-1.5 transition-colors outline-none hover:bg-white/10">
           <Avatar className="h-8 w-8">
             <AvatarImage
               src={user?.image ?? undefined}
@@ -49,7 +49,11 @@ export function UserDropdown() {
           <span className="hidden text-sm font-medium text-white md:block">
             {user?.firstName}
           </span>
-          <ChevronDownIcon size={14} className="text-white/60" aria-hidden="true" />
+          <ChevronDownIcon
+            size={14}
+            className="text-white/60"
+            aria-hidden="true"
+          />
         </button>
       </DropdownMenuTrigger>
 
@@ -66,15 +70,19 @@ export function UserDropdown() {
         <DropdownMenuSeparator />
 
         <DropdownMenuGroup>
-          <DropdownMenuItem asChild>
+          <DropdownMenuItem>
             <Link href={dashboardHref} className="flex items-center gap-2">
               <IconLayoutDashboard size={15} className="opacity-60" />
               <span>Dashboard</span>
             </Link>
           </DropdownMenuItem>
-          <DropdownMenuItem asChild>
+          <DropdownMenuItem>
             <Link
-              href={user?.role === "STUDENT" ? "/student/profile" : "/admin/settings"}
+              href={
+                user?.role === "STUDENT"
+                  ? "/student/profile"
+                  : "/admin/settings"
+              }
               className="flex items-center gap-2"
             >
               <IconUser size={15} className="opacity-60" />
@@ -87,8 +95,11 @@ export function UserDropdown() {
           <>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
-              <DropdownMenuItem asChild>
-                <Link href="/admin/dashboard" className="flex items-center gap-2">
+              <DropdownMenuItem>
+                <Link
+                  href="/admin/dashboard"
+                  className="flex items-center gap-2"
+                >
                   <IconShieldFilled size={15} className="opacity-60" />
                   <span>Admin Portal</span>
                 </Link>

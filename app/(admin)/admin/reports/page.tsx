@@ -94,10 +94,10 @@ export default function ReportsPage() {
       else if (key === "model-performance") {
         const res = await api.get<MetricsMap>("/predictions/metrics")
         const data = res.data
-        const entries = Array.isArray(data)
+        const entries: [string, any][] = Array.isArray(data)
           ? (data as any[]).map((r) => [r.algorithm, r])
           : Object.entries(data)
-        const rows = entries.map(([algo, m]: [string, any]) => [
+        const rows = entries.map(([algo, m]) => [
           algo,
           ((m.accuracy ?? 0) * 100).toFixed(2) + "%",
           ((m.precision ?? 0) * 100).toFixed(2) + "%",

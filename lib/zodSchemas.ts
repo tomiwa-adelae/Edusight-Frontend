@@ -1,7 +1,7 @@
 import z from "zod"
 
 export const LoginSchema = z.object({
-  email: z.string().email({ error: "Enter a valid email address" }),
+  email: z.string().email({ message: "Enter a valid email address" }),
   password: z.string().min(2, { message: "Enter your password" }),
 })
 export type LoginSchemaType = z.infer<typeof LoginSchema>
@@ -16,7 +16,7 @@ export const RegisterSchema = z
       .string()
       .min(2, { message: "Last name must be at least 2 characters" })
       .max(100),
-    email: z.string().email({ error: "Enter a valid email address" }),
+    email: z.string().email({ message: "Enter a valid email address" }),
     phoneNumber: z.string().optional(),
     role: z.enum(["STUDENT", "LECTURER", "ADMIN"], {
       message: "Please select a role",

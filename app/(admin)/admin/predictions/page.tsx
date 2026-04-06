@@ -145,7 +145,7 @@ export default function PredictionsPage() {
           <CardContent className="space-y-4">
             <div className="space-y-1.5">
               <label className="text-xs font-medium text-slate-600 dark:text-slate-400">ML Algorithm</label>
-              <Select value={algorithm} onValueChange={setAlgorithm}>
+              <Select value={algorithm} onValueChange={(v) => v && setAlgorithm(v)}>
                 <SelectTrigger className="dark:border-slate-700 dark:bg-slate-800">
                   <SelectValue />
                 </SelectTrigger>
@@ -161,7 +161,7 @@ export default function PredictionsPage() {
 
             <div className="space-y-1.5">
               <label className="text-xs font-medium text-slate-600 dark:text-slate-400">Target Cohort</label>
-              <Select value={level} onValueChange={setLevel}>
+              <Select value={level} onValueChange={(v) => v && setLevel(v)}>
                 <SelectTrigger className="dark:border-slate-700 dark:bg-slate-800">
                   <SelectValue />
                 </SelectTrigger>
@@ -178,7 +178,7 @@ export default function PredictionsPage() {
 
             <div className="space-y-1.5">
               <label className="text-xs font-medium text-slate-600 dark:text-slate-400">Academic Session</label>
-              <Select value={academicSession} onValueChange={setAcademicSession}>
+              <Select value={academicSession} onValueChange={(v) => v && setAcademicSession(v)}>
                 <SelectTrigger className="dark:border-slate-700 dark:bg-slate-800">
                   <SelectValue />
                 </SelectTrigger>
@@ -192,7 +192,7 @@ export default function PredictionsPage() {
 
             <div className="space-y-1.5">
               <label className="text-xs font-medium text-slate-600 dark:text-slate-400">Semester</label>
-              <Select value={semester} onValueChange={setSemester}>
+              <Select value={semester} onValueChange={(v) => v && setSemester(v)}>
                 <SelectTrigger className="dark:border-slate-700 dark:bg-slate-800">
                   <SelectValue />
                 </SelectTrigger>

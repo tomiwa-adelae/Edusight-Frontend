@@ -89,7 +89,7 @@ export function MobileNavbar() {
         <SheetHeader className="border-b p-4">
           <div className="flex items-center justify-between">
             <Link href="/" onClick={handleLinkClick}>
-              <Logo size="h-12" type="green" />
+              <Logo size="h-12" />
             </Link>
             <Button variant="ghost" size="icon" onClick={toggleTheme}>
               <IconSun className="h-5 w-5 scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90" />
@@ -145,7 +145,7 @@ export function MobileNavbar() {
             )}
 
             {/* Admin link */}
-            {user?.isAdmin && (
+            {user?.role === "ADMIN" && (
               <>
                 <Separator />
                 <div className="px-2">
