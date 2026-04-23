@@ -66,9 +66,7 @@ export const Hero = () => {
                     <span className="text-slate-400">
                       Prediction Confidence
                     </span>
-                    <span className="font-mono font-bold text-white">
-                      94.2%
-                    </span>
+                    <span className="font-bold text-white">94.2%</span>
                   </div>
 
                   <div className="mt-4 grid grid-cols-2 gap-3">

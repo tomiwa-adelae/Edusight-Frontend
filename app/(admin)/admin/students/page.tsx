@@ -3,7 +3,13 @@
 import React, { useCallback, useEffect, useState } from "react"
 import Link from "next/link"
 import { Search, SlidersHorizontal, Download, Eye } from "lucide-react"
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+} from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
@@ -58,9 +64,23 @@ const LEVEL_LABELS: Record<string, string> = {
 }
 
 const riskBadge = (risk: string) => {
-  if (risk === "HIGH") return <Badge className="bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400">High</Badge>
-  if (risk === "MEDIUM") return <Badge className="bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400">Medium</Badge>
-  return <Badge className="bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400">Low</Badge>
+  if (risk === "HIGH")
+    return (
+      <Badge className="bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400">
+        High
+      </Badge>
+    )
+  if (risk === "MEDIUM")
+    return (
+      <Badge className="bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400">
+        Medium
+      </Badge>
+    )
+  return (
+    <Badge className="bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400">
+      Low
+    </Badge>
+  )
 }
 
 export default function StudentsPage() {
@@ -88,7 +108,8 @@ export default function StudentsPage() {
 
   // Fetch departments once
   useEffect(() => {
-    api.get<Department[]>("/admin/departments")
+    api
+      .get<Department[]>("/admin/departments")
       .then((res) => setDepartments(res.data))
       .catch(console.error)
   }, [])
@@ -102,7 +123,8 @@ export default function StudentsPage() {
     if (riskLevel) params.set("riskLevel", riskLevel)
     if (level) params.set("level", level)
 
-    api.get<StudentsResponse>(`/students?${params}`)
+    api
+      .get<StudentsResponse>(`/students?${params}`)
       .then((res) => setData(res.data))
       .catch(console.error)
       .finally(() => setLoading(false))
@@ -120,12 +142,20 @@ export default function StudentsPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-slate-900 dark:text-white">Students</h1>
+          <h1 className="text-2xl font-bold text-slate-900 dark:text-white">
+            Students
+          </h1>
           <p className="text-sm text-slate-500 dark:text-slate-400">
-            {loading ? "Loading…" : `${total.toLocaleString()} student${total !== 1 ? "s" : ""} found`}
+            {loading
+              ? "Loading…"
+              : `${total.toLocaleString()} student${total !== 1 ? "s" : ""} found`}
           </p>
         </div>
-        <Button variant="outline" size="sm" className="gap-2 dark:border-slate-700 dark:text-slate-300">
+        <Button
+          variant="outline"
+          size="sm"
+          className="gap-2 dark:border-slate-700 dark:text-slate-300"
+        >
           <Download size={14} />
           Export
         </Button>
@@ -144,18 +174,26 @@ export default function StudentsPage() {
                 onChange={(e) => setSearch(e.target.value)}
               />
             </div>
-            <Select value={departmentId} onValueChange={(v) => setDepartmentId(v ?? "")}>
+            <Select
+              value={departmentId}
+              onValueChange={(v) => setDepartmentId(v ?? "")}
+            >
               <SelectTrigger className="w-44 dark:border-slate-700 dark:bg-slate-800">
                 <SelectValue placeholder="Department" />
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="all">All Departments</SelectItem>
                 {departments.map((d) => (
-                  <SelectItem key={d.id} value={d.id}>{d.name}</SelectItem>
+                  <SelectItem key={d.id} value={d.id}>
+                    {d.name}
+                  </SelectItem>
                 ))}
               </SelectContent>
             </Select>
-            <Select value={riskLevel} onValueChange={(v) => setRiskLevel(v ?? "")}>
+            <Select
+              value={riskLevel}
+              onValueChange={(v) => setRiskLevel(v ?? "")}
+            >
               <SelectTrigger className="w-36 dark:border-slate-700 dark:bg-slate-800">
                 <SelectValue placeholder="Risk Level" />
               </SelectTrigger>
@@ -202,7 +240,9 @@ export default function StudentsPage() {
       {/* Table */}
       <Card className="dark:border-slate-800 dark:bg-slate-900">
         <CardHeader>
-          <CardTitle className="text-base dark:text-white">All Students</CardTitle>
+          <CardTitle className="text-base dark:text-white">
+            All Students
+          </CardTitle>
           <CardDescription className="dark:text-slate-400">
             {loading
               ? "Loading students…"
@@ -213,9 +253,15 @@ export default function StudentsPage() {
           <Table>
             <TableHeader>
               <TableRow className="dark:border-slate-800">
-                <TableHead className="pl-6 dark:text-slate-400">Student</TableHead>
-                <TableHead className="dark:text-slate-400">Matric No.</TableHead>
-                <TableHead className="dark:text-slate-400">Department</TableHead>
+                <TableHead className="pl-6 dark:text-slate-400">
+                  Student
+                </TableHead>
+                <TableHead className="dark:text-slate-400">
+                  Matric No.
+                </TableHead>
+                <TableHead className="dark:text-slate-400">
+                  Department
+                </TableHead>
                 <TableHead className="dark:text-slate-400">Level</TableHead>
                 <TableHead className="dark:text-slate-400">CGPA</TableHead>
                 <TableHead className="dark:text-slate-400">Risk</TableHead>
@@ -227,7 +273,10 @@ export default function StudentsPage() {
                 Array.from({ length: 8 }).map((_, i) => (
                   <TableRow key={i} className="dark:border-slate-800">
                     {Array.from({ length: 7 }).map((_, j) => (
-                      <TableCell key={j} className={j === 0 ? "pl-6" : j === 6 ? "pr-6" : ""}>
+                      <TableCell
+                        key={j}
+                        className={j === 0 ? "pl-6" : j === 6 ? "pr-6" : ""}
+                      >
                         <Skeleton className="h-4 w-full" />
                       </TableCell>
                     ))}
@@ -235,7 +284,10 @@ export default function StudentsPage() {
                 ))
               ) : students.length === 0 ? (
                 <TableRow>
-                  <TableCell colSpan={7} className="py-12 text-center text-sm text-slate-500 dark:text-slate-400">
+                  <TableCell
+                    colSpan={7}
+                    className="py-12 text-center text-sm text-slate-500 dark:text-slate-400"
+                  >
                     No students found. Add students to get started.
                   </TableCell>
                 </TableRow>
@@ -245,7 +297,7 @@ export default function StudentsPage() {
                     <TableCell className="pl-6 font-medium dark:text-white">
                       {s.user.firstName} {s.user.lastName}
                     </TableCell>
-                    <TableCell className="font-mono text-xs text-slate-500 dark:text-slate-400">
+                    <TableCell className="text-xs text-slate-500 dark:text-slate-400">
                       {s.matricNumber}
                     </TableCell>
                     <TableCell className="text-sm text-slate-600 dark:text-slate-300">
@@ -255,13 +307,15 @@ export default function StudentsPage() {
                       {LEVEL_LABELS[s.level] ?? s.level}L
                     </TableCell>
                     <TableCell>
-                      <span className={`text-sm font-semibold ${
-                        s.currentCgpa < 2.0
-                          ? "text-red-600"
-                          : s.currentCgpa < 2.5
-                          ? "text-amber-600"
-                          : "text-emerald-600"
-                      }`}>
+                      <span
+                        className={`text-sm font-semibold ${
+                          s.currentCgpa < 2.0
+                            ? "text-red-600"
+                            : s.currentCgpa < 2.5
+                              ? "text-amber-600"
+                              : "text-emerald-600"
+                        }`}
+                      >
                         {s.currentCgpa.toFixed(2)}
                       </span>
                     </TableCell>

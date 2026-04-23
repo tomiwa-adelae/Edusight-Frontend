@@ -18,7 +18,7 @@ export const SystemPreview = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+        <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
           {/* Main Dashboard Preview (Large Card) */}
           <div className="group relative rounded-3xl border border-white/10 bg-slate-800/50 p-8 md:col-span-2">
             <div className="mb-8 flex items-center gap-4">

@@ -18,7 +18,7 @@ export const Header = () => {
     pathname === slug || pathname.startsWith(`${slug}/`)
 
   return (
-    <header className="fixed top-0 z-50 w-full overflow-hidden border-b border-white/10 bg-primary">
+    <header className="fixed top-0 z-50 w-full overflow-hidden border-b border-white/10 bg-black">
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-white/20 via-white/10 to-transparent" />
 
       <div className="container mx-auto flex h-20 items-center justify-between">

@@ -2,14 +2,30 @@
 
 import React, { useEffect, useState } from "react"
 import { Trophy } from "lucide-react"
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+} from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Skeleton } from "@/components/ui/skeleton"
 import {
-  Table, TableBody, TableCell, TableHead, TableHeader, TableRow,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
 } from "@/components/ui/table"
 import {
-  BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip,
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
   ResponsiveContainer,
 } from "recharts"
 import api from "@/lib/api"
@@ -55,10 +71,30 @@ const FEATURE_LABELS: Record<string, string> = {
 }
 
 const HYPERPARAMS: Record<string, Record<string, string>> = {
-  RANDOM_FOREST: { n_estimators: "200", max_depth: "12", min_samples_leaf: "4", class_weight: "balanced", random_state: "42" },
-  XGBOOST: { n_estimators: "200", max_depth: "6", learning_rate: "0.1", subsample: "0.8", colsample_bytree: "0.8" },
-  LOGISTIC_REGRESSION: { max_iter: "1000", solver: "lbfgs", class_weight: "balanced" },
-  DECISION_TREE: { max_depth: "8", min_samples_leaf: "5", class_weight: "balanced" },
+  RANDOM_FOREST: {
+    n_estimators: "200",
+    max_depth: "12",
+    min_samples_leaf: "4",
+    class_weight: "balanced",
+    random_state: "42",
+  },
+  XGBOOST: {
+    n_estimators: "200",
+    max_depth: "6",
+    learning_rate: "0.1",
+    subsample: "0.8",
+    colsample_bytree: "0.8",
+  },
+  LOGISTIC_REGRESSION: {
+    max_iter: "1000",
+    solver: "lbfgs",
+    class_weight: "balanced",
+  },
+  DECISION_TREE: {
+    max_depth: "8",
+    min_samples_leaf: "5",
+    class_weight: "balanced",
+  },
   SVM: { kernel: "rbf", C: "1.0", class_weight: "balanced" },
 }
 
@@ -66,9 +102,21 @@ const pct = (v: number) => (v * 100).toFixed(2)
 
 const CM_LABELS = ["Fail", "At Risk", "Pass"]
 const CM_COLORS = [
-  ["bg-red-100 text-red-800 dark:bg-red-950/60 dark:text-red-300", "bg-red-50 text-red-600 dark:bg-red-950/30 dark:text-red-400", "bg-slate-50 text-slate-500 dark:bg-slate-800/40 dark:text-slate-400"],
-  ["bg-slate-50 text-slate-500 dark:bg-slate-800/40 dark:text-slate-400", "bg-amber-100 text-amber-800 dark:bg-amber-950/60 dark:text-amber-300", "bg-slate-50 text-slate-500 dark:bg-slate-800/40 dark:text-slate-400"],
-  ["bg-slate-50 text-slate-500 dark:bg-slate-800/40 dark:text-slate-400", "bg-slate-50 text-slate-500 dark:bg-slate-800/40 dark:text-slate-400", "bg-emerald-100 text-emerald-800 dark:bg-emerald-950/60 dark:text-emerald-300"],
+  [
+    "bg-red-100 text-red-800 dark:bg-red-950/60 dark:text-red-300",
+    "bg-red-50 text-red-600 dark:bg-red-950/30 dark:text-red-400",
+    "bg-slate-50 text-slate-500 dark:bg-slate-800/40 dark:text-slate-400",
+  ],
+  [
+    "bg-slate-50 text-slate-500 dark:bg-slate-800/40 dark:text-slate-400",
+    "bg-amber-100 text-amber-800 dark:bg-amber-950/60 dark:text-amber-300",
+    "bg-slate-50 text-slate-500 dark:bg-slate-800/40 dark:text-slate-400",
+  ],
+  [
+    "bg-slate-50 text-slate-500 dark:bg-slate-800/40 dark:text-slate-400",
+    "bg-slate-50 text-slate-500 dark:bg-slate-800/40 dark:text-slate-400",
+    "bg-emerald-100 text-emerald-800 dark:bg-emerald-950/60 dark:text-emerald-300",
+  ],
 ]
 
 function ConfusionMatrix({ matrix }: { matrix: number[][] }) {
@@ -79,23 +127,31 @@ function ConfusionMatrix({ matrix }: { matrix: number[][] }) {
         {/* Header row */}
         <div className="mb-1 flex items-center gap-1 pl-24">
           {CM_LABELS.map((l) => (
-            <div key={l} className="w-24 text-center text-[11px] font-semibold text-slate-500 dark:text-slate-400">
+            <div
+              key={l}
+              className="w-24 text-center text-[11px] font-semibold text-slate-500 dark:text-slate-400"
+            >
               {l}
             </div>
           ))}
         </div>
         {/* Label column header */}
         <div className="mb-1 flex items-center gap-1">
-          <div className="w-24 text-right pr-2 text-[10px] text-slate-400 dark:text-slate-500">Actual ↓ / Pred →</div>
-          {CM_LABELS.map((_, ci) => <div key={ci} className="w-24" />)}
+          <div className="w-24 pr-2 text-right text-[10px] text-slate-400 dark:text-slate-500">
+            Actual ↓ / Pred →
+          </div>
+          {CM_LABELS.map((_, ci) => (
+            <div key={ci} className="w-24" />
+          ))}
         </div>
         {matrix.map((row, ri) => (
           <div key={ri} className="mb-1 flex items-center gap-1">
-            <div className="w-24 text-right pr-2 text-[11px] font-semibold text-slate-600 dark:text-slate-400">
+            <div className="w-24 pr-2 text-right text-[11px] font-semibold text-slate-600 dark:text-slate-400">
               {CM_LABELS[ri]}
             </div>
             {row.map((val, ci) => {
-              const pctVal = rowSums[ri] > 0 ? ((val / rowSums[ri]) * 100).toFixed(1) : "0.0"
+              const pctVal =
+                rowSums[ri] > 0 ? ((val / rowSums[ri]) * 100).toFixed(1) : "0.0"
               return (
                 <div
                   key={ci}
@@ -122,7 +178,8 @@ export default function ModelPage() {
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
-    api.get<MetricsMap>("/predictions/metrics")
+    api
+      .get<MetricsMap>("/predictions/metrics")
       .then((res) => {
         // Handle both FastAPI format (snake_case keys) and
         // DB fallback format (array with camelCase keys)
@@ -146,7 +203,11 @@ export default function ModelPage() {
           setMetrics(data)
         }
       })
-      .catch(() => setError("Could not load model metrics. Make sure the ML service is running and models are trained."))
+      .catch(() =>
+        setError(
+          "Could not load model metrics. Make sure the ML service is running and models are trained."
+        )
+      )
       .finally(() => setLoading(false))
   }, [])
 
@@ -164,12 +225,14 @@ export default function ModelPage() {
     return (
       <div className="space-y-6">
         <div>
-          <h1 className="text-2xl font-bold text-slate-900 dark:text-white">ML Model</h1>
+          <h1 className="text-2xl font-bold text-slate-900 dark:text-white">
+            ML Model
+          </h1>
         </div>
         <Card className="dark:border-slate-800 dark:bg-slate-900">
           <CardContent className="py-12 text-center text-sm text-slate-500 dark:text-slate-400">
             {error ?? "No trained models found."}
-            <p className="mt-2 font-mono text-xs">python train.py --regen</p>
+            <p className="mt-2 text-xs">python train.py --regen</p>
           </CardContent>
         </Card>
       </div>
@@ -177,7 +240,9 @@ export default function ModelPage() {
   }
 
   // Sort by F1 score descending
-  const sorted = Object.entries(metrics).sort((a, b) => b[1].f1_score - a[1].f1_score)
+  const sorted = Object.entries(metrics).sort(
+    (a, b) => b[1].f1_score - a[1].f1_score
+  )
   const [bestKey, bestMetrics] = sorted[0]
 
   // Chart data
@@ -199,7 +264,9 @@ export default function ModelPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-slate-900 dark:text-white">ML Model</h1>
+        <h1 className="text-2xl font-bold text-slate-900 dark:text-white">
+          ML Model
+        </h1>
         <p className="text-sm text-slate-500 dark:text-slate-400">
           Algorithm comparison and performance metrics · 80/20 train/test split
         </p>
@@ -207,7 +274,7 @@ export default function ModelPage() {
 
       {/* Best model banner */}
       <Card className="border-blue-200 bg-blue-50 dark:border-blue-900/40 dark:bg-blue-950/20">
-        <CardContent className="pt-4">
+        <CardContent>
           <div className="flex items-center gap-3">
             <div className="rounded-xl bg-blue-600 p-2.5">
               <Trophy className="h-5 w-5 text-white" />
@@ -217,19 +284,25 @@ export default function ModelPage() {
                 Best Performing Algorithm: {ALGO_LABELS[bestKey] ?? bestKey}
               </p>
               <p className="text-xs text-blue-700 dark:text-blue-400">
-                F1 Score: {pct(bestMetrics.f1_score)}% · AUC-ROC: {bestMetrics.auc_roc.toFixed(4)} ·
-                Cohen's Kappa: {bestMetrics.cohen_kappa.toFixed(4)} · Trained on 800 student records
+                F1 Score: {pct(bestMetrics.f1_score)}% · AUC-ROC:{" "}
+                {bestMetrics.auc_roc.toFixed(4)} · Cohen's Kappa:{" "}
+                {bestMetrics.cohen_kappa.toFixed(4)} · Trained on 800 student
+                records
               </p>
             </div>
-            <Badge className="ml-auto bg-blue-600 text-white">Active Model</Badge>
+            <Badge className="ml-auto bg-blue-600 text-white">
+              Active Model
+            </Badge>
           </div>
         </CardContent>
       </Card>
 
       {/* Comparison table */}
       <Card className="dark:border-slate-800 dark:bg-slate-900">
-        <CardHeader>
-          <CardTitle className="text-base dark:text-white">Algorithm Comparison</CardTitle>
+        <CardHeader className="border-b">
+          <CardTitle className="text-base dark:text-white">
+            Algorithm Comparison
+          </CardTitle>
           <CardDescription className="dark:text-slate-400">
             All metrics computed on the 20% hold-out test set (200 students)
           </CardDescription>
@@ -238,13 +311,17 @@ export default function ModelPage() {
           <Table>
             <TableHeader>
               <TableRow className="dark:border-slate-800">
-                <TableHead className="pl-6 dark:text-slate-400">Algorithm</TableHead>
+                <TableHead className="pl-6 dark:text-slate-400">
+                  Algorithm
+                </TableHead>
                 <TableHead className="dark:text-slate-400">Accuracy</TableHead>
                 <TableHead className="dark:text-slate-400">Precision</TableHead>
                 <TableHead className="dark:text-slate-400">Recall</TableHead>
                 <TableHead className="dark:text-slate-400">F1 Score</TableHead>
                 <TableHead className="dark:text-slate-400">AUC-ROC</TableHead>
-                <TableHead className="pr-6 dark:text-slate-400">Kappa</TableHead>
+                <TableHead className="pr-6 dark:text-slate-400">
+                  Kappa
+                </TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -255,20 +332,38 @@ export default function ModelPage() {
                 >
                   <TableCell className="pl-6">
                     <div className="flex items-center gap-2">
-                      <span className="text-sm font-medium dark:text-white">{ALGO_LABELS[algo] ?? algo}</span>
-                      {i === 0 && <Badge className="bg-blue-600 px-1.5 py-0 text-[10px] text-white">Best</Badge>}
+                      <span className="text-sm font-medium dark:text-white">
+                        {ALGO_LABELS[algo] ?? algo}
+                      </span>
+                      {i === 0 && (
+                        <Badge className="bg-blue-600 px-1.5 py-0 text-[10px] text-white">
+                          Best
+                        </Badge>
+                      )}
                     </div>
                   </TableCell>
-                  <TableCell className="text-sm font-semibold text-slate-700 dark:text-slate-200">{pct(m.accuracy)}%</TableCell>
-                  <TableCell className="text-sm dark:text-slate-300">{pct(m.precision)}%</TableCell>
-                  <TableCell className="text-sm dark:text-slate-300">{pct(m.recall)}%</TableCell>
+                  <TableCell className="text-sm font-semibold text-slate-700 dark:text-slate-200">
+                    {pct(m.accuracy)}%
+                  </TableCell>
+                  <TableCell className="text-sm dark:text-slate-300">
+                    {pct(m.precision)}%
+                  </TableCell>
+                  <TableCell className="text-sm dark:text-slate-300">
+                    {pct(m.recall)}%
+                  </TableCell>
                   <TableCell>
-                    <span className={`text-sm font-bold ${i === 0 ? "text-blue-600" : "dark:text-slate-300"}`}>
+                    <span
+                      className={`text-sm font-bold ${i === 0 ? "text-blue-600" : "dark:text-slate-300"}`}
+                    >
                       {pct(m.f1_score)}%
                     </span>
                   </TableCell>
-                  <TableCell className="text-sm dark:text-slate-300">{m.auc_roc.toFixed(4)}</TableCell>
-                  <TableCell className="pr-6 text-sm dark:text-slate-300">{m.cohen_kappa.toFixed(4)}</TableCell>
+                  <TableCell className="text-sm dark:text-slate-300">
+                    {m.auc_roc.toFixed(4)}
+                  </TableCell>
+                  <TableCell className="pr-6 text-sm dark:text-slate-300">
+                    {m.cohen_kappa.toFixed(4)}
+                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>
@@ -279,18 +374,35 @@ export default function ModelPage() {
       {/* Charts row */}
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
         <Card className="dark:border-slate-800 dark:bg-slate-900">
-          <CardHeader>
-            <CardTitle className="text-base dark:text-white">F1 Score Comparison</CardTitle>
-            <CardDescription className="dark:text-slate-400">Primary metric for imbalanced classification</CardDescription>
+          <CardHeader className="border-b">
+            <CardTitle className="text-base dark:text-white">
+              F1 Score Comparison
+            </CardTitle>
+            <CardDescription className="dark:text-slate-400">
+              Primary metric for imbalanced classification
+            </CardDescription>
           </CardHeader>
           <CardContent>
             <ResponsiveContainer width="100%" height={220}>
               <BarChart data={f1ChartData} barSize={36}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
                 <XAxis dataKey="name" tick={{ fontSize: 9 }} />
-                <YAxis domain={[50, 100]} tick={{ fontSize: 10 }} tickFormatter={(v) => `${v}%`} />
+                <YAxis
+                  domain={[50, 100]}
+                  tick={{ fontSize: 10 }}
+                  tickFormatter={(v) => `${v}%`}
+                />
                 <Tooltip formatter={(v) => [`${v}%`, "F1 Score"]} />
-                <Bar dataKey="f1" radius={[4, 4, 0, 0]} fill="#2563eb" label={{ position: "top", fontSize: 9, formatter: (v: unknown) => v != null ? `${v}%` : "" }} />
+                <Bar
+                  dataKey="f1"
+                  radius={[4, 4, 0, 0]}
+                  fill="#2563eb"
+                  label={{
+                    position: "top",
+                    fontSize: 9,
+                    formatter: (v: unknown) => (v != null ? `${v}%` : ""),
+                  }}
+                />
               </BarChart>
             </ResponsiveContainer>
           </CardContent>
@@ -299,19 +411,39 @@ export default function ModelPage() {
         {featureData.length > 0 && (
           <Card className="dark:border-slate-800 dark:bg-slate-900">
             <CardHeader>
-              <CardTitle className="text-base dark:text-white">Feature Importance</CardTitle>
+              <CardTitle className="text-base dark:text-white">
+                Feature Importance
+              </CardTitle>
               <CardDescription className="dark:text-slate-400">
                 {ALGO_LABELS[bestKey]} — mean decrease in impurity
               </CardDescription>
             </CardHeader>
             <CardContent>
               <ResponsiveContainer width="100%" height={220}>
-                <BarChart data={featureData} layout="vertical" barSize={14} margin={{ left: 10, right: 30 }}>
+                <BarChart
+                  data={featureData}
+                  layout="vertical"
+                  barSize={14}
+                  margin={{ left: 10, right: 30 }}
+                >
                   <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
-                  <XAxis type="number" tick={{ fontSize: 9 }} tickFormatter={(v) => `${v}%`} />
-                  <YAxis dataKey="feature" type="category" tick={{ fontSize: 9 }} width={120} />
+                  <XAxis
+                    type="number"
+                    tick={{ fontSize: 9 }}
+                    tickFormatter={(v) => `${v}%`}
+                  />
+                  <YAxis
+                    dataKey="feature"
+                    type="category"
+                    tick={{ fontSize: 9 }}
+                    width={120}
+                  />
                   <Tooltip formatter={(v) => [`${v}%`, "Importance"]} />
-                  <Bar dataKey="importance" fill="#7c3aed" radius={[0, 4, 4, 0]} />
+                  <Bar
+                    dataKey="importance"
+                    fill="#7c3aed"
+                    radius={[0, 4, 4, 0]}
+                  />
                 </BarChart>
               </ResponsiveContainer>
             </CardContent>
@@ -320,23 +452,27 @@ export default function ModelPage() {
       </div>
 
       {/* Confusion Matrix */}
-      {bestMetrics.confusion_matrix && bestMetrics.confusion_matrix.length === 3 && (
-        <Card className="dark:border-slate-800 dark:bg-slate-900">
-          <CardHeader>
-            <CardTitle className="text-base dark:text-white">Confusion Matrix</CardTitle>
-            <CardDescription className="dark:text-slate-400">
-              {ALGO_LABELS[bestKey]} — actual vs. predicted classes on the 20% test set
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <ConfusionMatrix matrix={bestMetrics.confusion_matrix} />
-          </CardContent>
-        </Card>
-      )}
+      {bestMetrics.confusion_matrix &&
+        bestMetrics.confusion_matrix.length === 3 && (
+          <Card className="dark:border-slate-800 dark:bg-slate-900">
+            <CardHeader className="border-b">
+              <CardTitle className="text-base dark:text-white">
+                Confusion Matrix
+              </CardTitle>
+              <CardDescription className="dark:text-slate-400">
+                {ALGO_LABELS[bestKey]} — actual vs. predicted classes on the 20%
+                test set
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <ConfusionMatrix matrix={bestMetrics.confusion_matrix} />
+            </CardContent>
+          </Card>
+        )}
 
       {/* Hyperparameter details for best model */}
       <Card className="dark:border-slate-800 dark:bg-slate-900">
-        <CardHeader>
+        <CardHeader className="border-b">
           <CardTitle className="text-base dark:text-white">
             Best Model — Hyperparameters
           </CardTitle>
@@ -346,12 +482,21 @@ export default function ModelPage() {
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-            {Object.entries(HYPERPARAMS[bestKey] ?? {}).map(([param, value]) => (
-              <div key={param} className="rounded-lg border border-slate-100 p-3 dark:border-slate-800">
-                <p className="font-mono text-[10px] text-slate-400 dark:text-slate-500">{param}</p>
-                <p className="font-mono text-sm font-semibold text-slate-800 dark:text-slate-200">{value}</p>
-              </div>
-            ))}
+            {Object.entries(HYPERPARAMS[bestKey] ?? {}).map(
+              ([param, value]) => (
+                <div
+                  key={param}
+                  className="rounded-lg border border-slate-100 p-3 dark:border-slate-800"
+                >
+                  <p className="text-[10px] text-slate-400 dark:text-slate-500">
+                    {param}
+                  </p>
+                  <p className="text-sm font-semibold text-slate-800 dark:text-slate-200">
+                    {value}
+                  </p>
+                </div>
+              )
+            )}
           </div>
         </CardContent>
       </Card>

@@ -170,7 +170,7 @@ export default function AdminDashboardPage() {
                   key={label}
                   className="dark:border-slate-800 dark:bg-slate-900"
                 >
-                  <CardContent className="pt-5">
+                  <CardContent>
                     <div className="flex items-start justify-between">
                       <div>
                         <p className="text-xs font-medium text-slate-500 dark:text-slate-400">
@@ -204,7 +204,7 @@ export default function AdminDashboardPage() {
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
         {/* CGPA Distribution Bar Chart */}
         <Card className="lg:col-span-2 dark:border-slate-800 dark:bg-slate-900">
-          <CardHeader>
+          <CardHeader className="border-b">
             <CardTitle className="text-base dark:text-white">
               CGPA Distribution
             </CardTitle>
@@ -235,7 +235,7 @@ export default function AdminDashboardPage() {
 
         {/* Risk Distribution Pie Chart */}
         <Card className="dark:border-slate-800 dark:bg-slate-900">
-          <CardHeader>
+          <CardHeader className="border-b">
             <CardTitle className="text-base dark:text-white">
               Risk Distribution
             </CardTitle>
@@ -277,7 +277,7 @@ export default function AdminDashboardPage() {
 
       {/* Recent at-risk students */}
       <Card className="dark:border-slate-800 dark:bg-slate-900">
-        <CardHeader className="flex flex-row items-center justify-between">
+        <CardHeader className="flex flex-row items-center justify-between border-b">
           <div>
             <CardTitle className="text-base dark:text-white">
               Recent At-Risk Alerts

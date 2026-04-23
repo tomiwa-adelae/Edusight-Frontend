@@ -1,5 +1,7 @@
 import React from "react"
 import { ArrowRight, UserCircle2, GraduationCap } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import Link from "next/link"
 
 export const FinalCTA = () => {
   return (
@@ -11,7 +13,7 @@ export const FinalCTA = () => {
           <div className="absolute bottom-0 left-0 h-64 w-64 -translate-x-1/4 translate-y-1/2 rounded-full bg-indigo-500/20 blur-2xl" />
 
           <div className="relative z-10 px-8 py-16 text-center md:p-20">
-            <h2 className="mb-6 text-3xl leading-tight font-black text-white md:text-5xl">
+            <h2 className="mb-6 text-3xl leading-tight font-semibold text-white md:text-5xl">
               Ready to transform <br className="hidden md:block" /> student
               outcomes at ACU?
             </h2>
@@ -21,22 +23,25 @@ export const FinalCTA = () => {
               specialized portal below.
             </p>
 
-            <div className="flex flex-col items-center justify-center gap-6 sm:flex-row">
+            <div className="flex flex-col items-center justify-center gap-3 sm:flex-row">
               {/* Lecturer Button */}
-              <button className="flex w-full items-center justify-center gap-3 rounded-2xl bg-white px-10 py-5 font-black text-blue-700 shadow-lg transition-all hover:-translate-y-1 hover:bg-blue-50 sm:w-auto">
-                <UserCircle2 size={24} />
-                Lecturer Portal
-                <ArrowRight size={20} className="ml-2" />
-              </button>
+              <Link href={"/login"}>
+                <Button>
+                  <UserCircle2 />
+                  Login
+                </Button>
+              </Link>
 
               {/* Student Button */}
-              <button className="flex w-full items-center justify-center gap-3 rounded-2xl border border-blue-600 bg-blue-800 px-10 py-5 font-black text-white transition-all hover:bg-blue-900 sm:w-auto">
-                <GraduationCap size={24} />
-                Student Login
-              </button>
+              <Link href={"/register"}>
+                <Button variant="outline">
+                  <GraduationCap size={24} />
+                  Get Started
+                </Button>
+              </Link>
             </div>
 
-            <p className="mt-10 text-xs font-medium tracking-[0.3em] text-blue-300 uppercase">
+            <p className="mt-10 text-xs font-medium text-blue-300 uppercase">
               Developed by Tomiwa Adelae • CSC 499 Project
             </p>
           </div>
