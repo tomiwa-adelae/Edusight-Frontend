@@ -23,7 +23,14 @@ import { ThemeToggle } from "@/components/ThemeToggle"
 import { Badge } from "@/components/ui/badge"
 import { IconSchool } from "@tabler/icons-react"
 
-const navItems = [
+type NavItem = {
+  href: string
+  label: string
+  icon: React.ComponentType<{ className?: string }>
+  badge?: string | number
+}
+
+const navItems: NavItem[] = [
   { href: "/admin/dashboard", label: "Dashboard", icon: LayoutDashboard },
   { href: "/admin/students", label: "Students", icon: Users },
   { href: "/admin/predictions", label: "Predictions", icon: BrainCircuit },
