@@ -132,7 +132,7 @@ export function MobileNavbar() {
             </div>
 
             {/* Member account links */}
-            {user && (
+            {/* {user && (
               <>
                 <Separator />
                 <div>
@@ -142,7 +142,7 @@ export function MobileNavbar() {
                   {renderNavLinks(memberNavLinks)}
                 </div>
               </>
-            )}
+            )} */}
 
             {/* Admin link */}
             {user?.role === "ADMIN" && (
@@ -151,7 +151,7 @@ export function MobileNavbar() {
                 <div className="px-2">
                   <Button
                     className="w-full justify-start gap-3"
-                    variant={isActive("/a/dashboard") ? "default" : "ghost"}
+                    variant={isActive("/admin/dashboard") ? "default" : "ghost"}
                     onClick={handleLinkClick}
                   >
                     <Link href="/a/dashboard">Admin Dashboard</Link>

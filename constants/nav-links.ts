@@ -31,7 +31,7 @@ export const homeNavLinks: NavLinks[] = [
 ]
 
 export const homeNavLinksMobile: NavLinks[] = [
-  { label: "Dashboard", slug: "/dashboard" },
+  { label: "Dashboard", slug: "/student/dashboard" },
   { label: "Predictor", slug: "/predict" },
   { label: "Analytics", slug: "/analytics" },
   { label: "Methodology", slug: "/methodology" },

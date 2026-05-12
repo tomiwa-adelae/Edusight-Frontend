@@ -23,6 +23,8 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { IconSchool } from "@tabler/icons-react"
+import { useAuth } from "@/store/useAuth"
+import { useSignout } from "@/hooks/use-signout"
 
 const navItems = [
   { href: "/student/dashboard", label: "Dashboard", icon: LayoutDashboard },
@@ -40,6 +42,16 @@ export default function StudentLayout({
   children: React.ReactNode
 }) {
   const pathname = usePathname()
+  const { user } = useAuth()
+  const handleSignout = useSignout()
+
+  const initials = user
+    ? `${user.firstName?.[0] ?? ""}${user.lastName?.[0] ?? ""}`.toUpperCase()
+    : "ES"
+
+  const displayName = user
+    ? `${user.firstName} ${user.lastName?.[0] ?? ""}.`
+    : "Student"
 
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-slate-950">
@@ -90,30 +102,33 @@ export default function StudentLayout({
               <span className="absolute top-2 right-2 h-1.5 w-1.5 rounded-full bg-emerald-500" />
             </Button>
             <DropdownMenu>
-              <DropdownMenuTrigger>
+              <DropdownMenuTrigger asChild>
                 <Button variant="ghost" className="gap-2 px-2">
                   <Avatar className="h-7 w-7">
                     <AvatarFallback className="bg-emerald-100 text-xs font-semibold text-emerald-700 dark:bg-emerald-900 dark:text-emerald-300">
-                      AO
+                      {initials}
                     </AvatarFallback>
                   </Avatar>
                   <span className="hidden text-sm font-medium text-slate-700 sm:block dark:text-slate-300">
-                    Adebayo O.
+                    {displayName}
                   </span>
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-48">
                 <DropdownMenuLabel className="text-xs text-slate-500">
-                  CSC/19/0012
+                  {user?.username ?? user?.email}
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem>
-                  <Link href="/student/profile" className="gap-2">
+                <DropdownMenuItem asChild>
+                  <Link href="/student/profile" className="flex items-center gap-2">
                     <User size={13} /> My Profile
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem className="gap-2 text-red-600 dark:text-red-400">
+                <DropdownMenuItem
+                  onClick={handleSignout}
+                  className="flex items-center gap-2 text-red-600 dark:text-red-400 focus:text-red-600"
+                >
                   <LogOut size={13} /> Sign Out
                 </DropdownMenuItem>
               </DropdownMenuContent>

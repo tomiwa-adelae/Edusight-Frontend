@@ -25,14 +25,18 @@ import { IconSchool } from "@tabler/icons-react"
 
 const navItems = [
   { href: "/admin/dashboard", label: "Dashboard", icon: LayoutDashboard },
-  { href: "/admin/students", label: "Students", icon: Users, badge: "187" },
+  { href: "/admin/students", label: "Students", icon: Users },
   { href: "/admin/predictions", label: "Predictions", icon: BrainCircuit },
   { href: "/admin/model", label: "ML Model", icon: BarChart3 },
   { href: "/admin/reports", label: "Reports", icon: FileText },
   { href: "/admin/settings", label: "Settings", icon: Settings },
 ]
 
-export default function AdminLayout({ children }: { children: React.ReactNode }) {
+export default function AdminLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
   const pathname = usePathname()
   const [collapsed, setCollapsed] = useState(false)
 
@@ -47,10 +51,15 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         style={{ position: "sticky", top: 0 }}
       >
         {/* Logo */}
-        <div className={cn("flex items-center gap-2.5 border-b border-white/10 px-4 py-5", collapsed && "justify-center px-0")}>
+        <div
+          className={cn(
+            "flex items-center gap-2.5 border-b border-white/10 px-4 py-5",
+            collapsed && "justify-center px-0"
+          )}
+        >
           <IconSchool className="h-6 w-6 shrink-0 text-blue-400" />
           {!collapsed && (
-            <span className="text-sm font-bold uppercase tracking-wider text-white">
+            <span className="text-sm font-bold tracking-wider text-white uppercase">
               EduSight
             </span>
           )}
@@ -59,7 +68,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         {/* Collapse toggle */}
         <button
           onClick={() => setCollapsed(!collapsed)}
-          className="absolute -right-3 top-6 flex h-6 w-6 items-center justify-center rounded-full border border-blue-800 bg-blue-950 text-white shadow-md dark:border-slate-700 dark:bg-slate-900"
+          className="absolute top-6 -right-3 flex h-6 w-6 items-center justify-center rounded-full border border-blue-800 bg-blue-950 text-white shadow-md dark:border-slate-700 dark:bg-slate-900"
         >
           {collapsed ? <ChevronRight size={12} /> : <ChevronLeft size={12} />}
         </button>
@@ -88,9 +97,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                 )}
               >
                 <Icon className="h-4 w-4 shrink-0" />
-                {!collapsed && (
-                  <span className="flex-1">{label}</span>
-                )}
+                {!collapsed && <span className="flex-1">{label}</span>}
                 {!collapsed && badge && (
                   <Badge className="bg-red-500 px-1.5 py-0 text-[10px] text-white">
                     {badge}
@@ -107,11 +114,17 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             <div className="space-y-2">
               <div className="flex items-center gap-2.5">
                 <Avatar className="h-8 w-8">
-                  <AvatarFallback className="bg-blue-600 text-xs text-white">TA</AvatarFallback>
+                  <AvatarFallback className="bg-blue-600 text-xs text-white">
+                    TA
+                  </AvatarFallback>
                 </Avatar>
                 <div className="min-w-0 flex-1">
-                  <p className="truncate text-sm font-medium text-white">Dr. T. Adelae</p>
-                  <p className="truncate text-xs text-blue-300">Administrator</p>
+                  <p className="truncate text-sm font-medium text-white">
+                    Dr. T. Adelae
+                  </p>
+                  <p className="truncate text-xs text-blue-300">
+                    Administrator
+                  </p>
                 </div>
               </div>
               <div className="flex items-center gap-1">
@@ -129,7 +142,9 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           ) : (
             <div className="flex flex-col items-center gap-2">
               <Avatar className="h-7 w-7">
-                <AvatarFallback className="bg-blue-600 text-[10px] text-white">TA</AvatarFallback>
+                <AvatarFallback className="bg-blue-600 text-[10px] text-white">
+                  TA
+                </AvatarFallback>
               </Avatar>
               <ThemeToggle className="h-7 w-7 text-blue-200 hover:bg-white/10 hover:text-white" />
             </div>
@@ -145,7 +160,9 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             <p className="text-sm font-semibold text-slate-700 dark:text-slate-200">
               Admin Portal
             </p>
-            <span className="hidden text-slate-300 dark:text-slate-600 md:block">·</span>
+            <span className="hidden text-slate-300 md:block dark:text-slate-600">
+              ·
+            </span>
             <p className="hidden text-xs text-slate-400 md:block dark:text-slate-500">
               Ajayi Crowther University
             </p>
@@ -158,9 +175,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           </div>
         </header>
 
-        <main className="flex-1 overflow-auto p-6">
-          {children}
-        </main>
+        <main className="flex-1 overflow-auto p-6">{children}</main>
       </div>
     </div>
   )
