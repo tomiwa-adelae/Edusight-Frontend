@@ -102,32 +102,28 @@ export default function StudentLayout({
               <span className="absolute top-2 right-2 h-1.5 w-1.5 rounded-full bg-emerald-500" />
             </Button>
             <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="gap-2 px-2">
-                  <Avatar className="h-7 w-7">
-                    <AvatarFallback className="bg-emerald-100 text-xs font-semibold text-emerald-700 dark:bg-emerald-900 dark:text-emerald-300">
-                      {initials}
-                    </AvatarFallback>
-                  </Avatar>
-                  <span className="hidden text-sm font-medium text-slate-700 sm:block dark:text-slate-300">
-                    {displayName}
-                  </span>
-                </Button>
+              <DropdownMenuTrigger className="flex items-center gap-2 rounded-md px-2 py-1.5 text-sm font-medium text-slate-700 transition-colors hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800">
+                <Avatar className="h-7 w-7">
+                  <AvatarFallback className="bg-emerald-100 text-xs font-semibold text-emerald-700 dark:bg-emerald-900 dark:text-emerald-300">
+                    {initials}
+                  </AvatarFallback>
+                </Avatar>
+                <span className="hidden sm:block">{displayName}</span>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-48">
                 <DropdownMenuLabel className="text-xs text-slate-500">
                   {user?.username ?? user?.email}
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem asChild>
-                  <Link href="/student/profile" className="flex items-center gap-2">
+                <DropdownMenuItem>
+                  <Link href="/student/profile" className="flex w-full items-center gap-2">
                     <User size={13} /> My Profile
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem
                   onClick={handleSignout}
-                  className="flex items-center gap-2 text-red-600 dark:text-red-400 focus:text-red-600"
+                  className="flex items-center gap-2 text-red-600 dark:text-red-400"
                 >
                   <LogOut size={13} /> Sign Out
                 </DropdownMenuItem>
